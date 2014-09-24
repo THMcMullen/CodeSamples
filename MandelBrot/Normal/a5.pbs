@@ -1,0 +1,4 @@
+#PBS -j oe -o a5.stdout -l nodes=1:ppn=2
+echo `cat $PBS_NODEFILE`
+echo Read from $PBS_NODEFILE
+mpiexec -machinefile $PBS_NODEFILE -np 2 /home/06222757/assignment/a5/Normal/a5

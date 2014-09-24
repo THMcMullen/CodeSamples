@@ -1,0 +1,14 @@
+Tim McMullen
+
+159.735 Assignment 1 ? Monte Carlo Calculation of pi
+
+This program uses random number calculation to determine the value of pi, firstly it requires the user to input the amount of times the circle will be sampled and how many nodes to work from.  It then creates a seed for the random numbers to be generated from, and takes the first N numbers generated (N been the number of nodes specified) and sends each node a number for it to work from.
+
+Once a machine has been given a number work from, it passes it through the algorithm Xi + k = (Axi + C) mod m, but ignores C as it has been set to zero. The value for A it worked out using the function modular, witch takes the the values for a, the number of processors and m. while k is the jump constant (and is equal to the number of nodes).
+Once a number has been generated it is then passed through another formula to determine the likelihood of it falling into the circle, and then added to the a running total. This process is run through a loop witch will run a a set amount of time given by the user, and uses the last value created to generate a new value to test from, keeping the numbers generated from the same pool, as this is required for this method to work.
+
+As each node finishes it will then send the total sum to the master node which will then add that to a running total, and passes this through a final calculation of pi = 4X/N where X is the total sum of all the numbers generated, and N is the amount of times the circle was sampled. The program will then return a value close to that of pi
+
+By parallelizing this it rapidly increased the rate in which the total sum was calculated, as the master node was only required to do a fraction of the work previously required of it. Proof of this is that when the program was run on one processor it took a total of 2.348756s with a sample size of 10^8, while with the same sample size but with 4 processors it only took 0.589196s, a reduction of  1.75956s. This reduction while large, by adding more processors it also increases communication time between the mater node and the others which is why the time taken for four processors is not a quarter of the time taken by one.
+
+Using a test program to recreate this program with all the numbers generated on the one master node then sent to each of the other nodes, it shows that a total time of around 3 minutes was taken proving a that by reducing the amount of sends and having each node create its own numbers from the originally send number we are able to greatly reduce the time taken to find the value of pie.

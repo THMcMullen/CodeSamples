@@ -1,0 +1,19 @@
+CPP = g++
+CFLAGS = -w -O3
+MPICPP = mpic++
+MPFLAGS = -llmpe -lmpe
+# Locally compiled modules
+OBJS = fitsfile.o
+
+# Link to these libraries
+LIBS = -lcfitsio -lm 
+
+MODS = $(INCP) $(LIBP) $(OBJS) $(LIBS)
+
+heat : heat.cpp $(OBJS)
+	$(MPICPP) $(MPFLAGS)  -o heat heat.cpp $(MODS)
+
+# Modules compiled and linked separately
+fitsfile.o : fitsfile.cpp fitsfile.h
+	${MPICPP} $(MPFLAGS) $(INCP) -c fitsfile.cpp
+
